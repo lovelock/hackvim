@@ -22,10 +22,15 @@ filetype indent on
 filetype plugin on
 filetype plugin indent on
 
+" Cancel backup and swapfile, we use version control system
+set nobackup
+set noswapfile
+
 " Sets to auto read when a file is modified from outside
 set autoread
 
 colorscheme seoul256
+set t_Co=256
 
 " :W sudo saves the file
 command W w !sudo tee % > /dev/null
@@ -57,7 +62,9 @@ set ruler
 set cmdheight=2
 
 " A buffer becomes hidden when it is abandoned
-set hid
+set hidden
+set wildmode=list:longest
+set ttyfast
 
 " Configure backspace so it acts as it should act
 set backspace=eol,start,indent
@@ -65,8 +72,11 @@ set whichwrap+=<,>,h,l
 
 " In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
-  set mouse=a
+  set mouse-=a
 endif
+
+" Increment as decimal
+set nrformats=
 
 " Ignore case when searching
 set ignorecase
@@ -79,6 +89,14 @@ set hlsearch
  
 " Makes search act like search in modern browsers
 set incsearch 
+
+" Keep search pattern at the center of the screen
+nnoremap <silent> n nzz
+nnoremap <silent> N Nzz
+nnoremap <silent> * *zz
+nnoremap <silent> # #zz
+nnoremap <silent> g* g*zz
+
  
 " Don't redraw while executing macros (good performance config)
 set lazyredraw 
@@ -150,6 +168,10 @@ set tw=500
 set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
+"Reselect visual block after indent/outdent.
+vnoremap < <gv
+vnoremap > >gv
+
  
 
 """"""""""""""""""""""""""""""
@@ -172,7 +194,7 @@ map k gk
 map <space> /
  
 " Disable highlight when <leader><cr> is pressed
-map <silent> <leader><cr> :noh<cr>
+map <silent> <leader>/ :noh<cr>
  
 " Smart way to move between windows
 map <C-j> <C-W>j
@@ -272,6 +294,66 @@ map <leader>sp [s
 map <leader>sa zg
 map <leader>s? z=
  
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Relative linenumber
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set relativenumber number
+au FocusLost * :set norelativenumber number
+au FocusGained * :set relativenumber
+autocmd InsertEnter * :set norelativenumber number
+autocmd InsertLeave * :set relativenumber
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set norelativenumber number
+  else
+    set relativenumber
+  endif
+endfunc
+nnoremap <C-n> :call NumberToggle()<cr>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => File encodings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set encoding=utf-8
+set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
+set termencoding=utf-8
+" Use Unix as the standard file type
+set ffs=unix,dos,mac
+set formatoptions+=m
+set formatoptions+=B
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Autoload configure files
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd! bufwritepost _vimrc source % " windows。
+autocmd! bufwritepost .vimrc source % " linux。
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Better paste mode
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! HideNumber()
+  if(&relativenumber == &number)
+    set relativenumber! number!
+  elseif(&number)
+    set number!
+  else
+    set relativenumber!
+  endif
+  set number?
+endfunc
+nnoremap <F2> :call HideNumber()<CR>
+nnoremap <F3> :set list! list?<CR>
+nnoremap <F4> :set wrap! wrap?<CR>
+              "set paste
+set pastetoggle=<F5>            "    when in insert mode, press <F5> to go to
+                                "    paste mode, where you can paste mass data
+                                "    that won't be autoindented
+
+" disbale paste mode when leaving insert mode
+au InsertLeave * set nopaste
+
  
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Misc
@@ -286,8 +368,147 @@ map <leader>q :e ~/buffer<cr>
 map <leader>x :e ~/buffer.md<cr>
  
 " Toggle paste mode on and off
-map <leader>pp :setlocal paste!<cr>
+set completeopt=longest,menu
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+nnoremap <F6> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
+hi! link SignColumn   LineNr
+hi! link ShowMarksHLl DiffAdd
+hi! link ShowMarksHLu DiffChange
 
+"" for error highlight，防止错误整行标红导致看不清
+highlight clear SpellBad
+highlight SpellBad term=standout ctermfg=1 term=underline cterm=underline
+highlight clear SpellCap
+highlight SpellCap term=underline cterm=underline
+highlight clear SpellRare
+highlight SpellRare term=underline cterm=underline
+highlight clear SpellLocal
+highlight SpellLocal term=underline cterm=underline
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Enhanced commandline
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+cnoremap <C-j> <t_kd>
+cnoremap <C-k> <t_ku>
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Tab navigations
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <C-t>     :tabnew<CR>
+inoremap <C-t>     <Esc>:tabnew<CR>
+
+map <leader>th :tabfirst<cr>
+map <leader>tl :tablast<cr>
+
+map <leader>tj :tabnext<cr>
+map <leader>tk :tabprev<cr>
+map <leader>tn :tabnext<cr>
+map <leader>tp :tabprev<cr>
+
+map <leader>te :tabedit<cr>
+map <leader>td :tabclose<cr>
+map <leader>tm :tabm<cr>
+
+noremap <leader>1 1gt
+noremap <leader>2 2gt
+noremap <leader>3 3gt
+noremap <leader>4 4gt
+noremap <leader>5 5gt
+noremap <leader>6 6gt
+noremap <leader>7 7gt
+noremap <leader>8 8gt
+noremap <leader>9 9gt
+noremap <leader>0 :tablast<cr>
+
+let g:last_active_tab = 1
+nnoremap <silent> <leader>tt :execute 'tabnext ' . g:last_active_tab<cr>
+vnoremap <silent> <leader>tt :execute 'tabnext ' . g:last_active_tab<cr>
+autocmd TabLeave * let g:last_active_tab = tabpagenr()
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Filetype settings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd FileType python set tabstop=4 shiftwidth=4 expandtab ai
+autocmd FileType ruby set tabstop=2 shiftwidth=2 softtabstop=2 expandtab ai
+fun! <SID>StripTrailingWhitespaces()
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    call cursor(l, c)
+endfun
+autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+
+autocmd BufNewFile *.sh,*.py,*.php,*.rb exec ":call AutoSetFileHead()"
+function! AutoSetFileHead()
+    if &filetype == 'sh'
+        call setline(1, "\#!/bin/bash")
+    endif
+
+    if &filetype == 'python'
+        call setline(1, "\#!/usr/bin/env python")
+        call append(1, "\# encoding: utf-8")
+    endif
+
+    if &filetype == 'php'
+	call setline(1, "<?php")
+	call append(1, "");
+    endif
+
+    if &filetype == 'ruby'
+        call setline(1, "\#!/usr/bin/env ruby")
+	call append(1, "");
+    fi
+
+    normal G
+    normal o
+    normal o
+endfunc
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Quick compile and run
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <F10> :call CompileRun()<CR>
+func! CompileRun()
+    exec "w"
+    if &filetype == 'c'
+        exec "!g++ % -o %<"
+        exec "!time ./%<"
+        exec "!rm ./%<"
+    elseif &filetype == 'cpp'
+        exec "!g++ % -o %<"
+        exec "!time ./%<"
+        exec "!rm ./%<"
+    elseif &filetype == 'java'
+        exec "!javac %"
+        exec "!time java %<"
+        exec "!rm ./%<.class"
+    elseif &filetype == 'sh'
+        exec "!time bash %"
+    elseif &filetype == 'python'
+        exec "!time python %"
+    elseif &filetype == 'html'
+        exec "!chrome % &"
+    elseif &filetype == 'go'
+        exec "!go build %<"
+        exec "!time go run %"
+    elseif &filetype == 'mkd' 
+        exec "!chrome % &"
+    elseif &filetype == 'javascript'
+        exec "!time node %"
+    elseif &filetype == 'coffee'
+        exec "!time coffee %"
+    elseif &filetype == 'ruby'
+        exec "!time ruby %"
+    elseif &filetype == 'php'
+        exec "!time php %"
+    endif
+endfunc
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
