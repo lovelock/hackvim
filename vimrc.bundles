@@ -84,5 +84,20 @@ nnoremap <silent> <leader>z :Goyo<cr>
 Bundle 'thinca/vim-quickrun'
 nnoremap <F8> :QuickRun<cr>
 
+Bundle 'kien/ctrlp.vim'     
+Bundle 'tacahiroy/ctrlp-funky'
+map <C-P> :CtrlP<cr>        
+map <leader>f :CtrlPMRU<cr> 
+ 
+Bundle 'szw/vim-ctrlspace'  
+map <leader>ff :CtrlSpace<cr>
+hi CtrlSpaceSelected term=reverse ctermfg=187  ctermbg=23  cterm=bold
+hi CtrlSpaceNormal   term=NONE    ctermfg=244  ctermbg=232 cterm=NONE
+hi CtrlSpaceSearch   ctermfg=220  ctermbg=NONE cterm=bold
+hi CtrlSpaceStatus   ctermfg=230  ctermbg=234  cterm=NONE
+
+Bundle 'junegunn/seoul256.vim'
+
+
 call vundle#end()
 
