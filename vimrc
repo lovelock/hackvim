@@ -25,6 +25,8 @@ filetype plugin indent on
 " Sets to auto read when a file is modified from outside
 set autoread
 
+colorscheme seoul256
+
 " :W sudo saves the file
 command W w !sudo tee % > /dev/null
 
