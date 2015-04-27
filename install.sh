@@ -4,8 +4,14 @@ BASEDIR=$(dirname $0)
 cd $BASEDIR
 CURRENT_DIR=`pwd`
 
+lnif() {
+	if [ -e "$1" ]; then
+		ln -sf "$1" "$2"
+	fi
+}
+
 echo "Step 1: Backup old configuration"
-TODAY=`date %Y%m%d`
+TODAY=`date +%Y%m%d`
 for i in $HOME/.vimrc $HOME/.gvimrc $HOME/.vim $HOME/.vimrc.bundles; do [ -e $i ] && [ ! -L $i ] && mv $i $i.$TODAY; done
 for i in $HOME/.vimrc $HOME/.gvimrc $HOME/.vim $HOME/.vimrc.bundles; do [ -L $i ] && unlink $i; done
 
@@ -15,9 +21,9 @@ lnif $CURRENT_DIR/vimrc.bundles $HOME/.vimrc.bundles
 lnif $CURRENT_DIR/ $HOME/.vim
 
 echo "Step 3: Install vundle"
-if [ ! -e $HOME/.vim ]; then
+if [ ! -e $CURRENT_DIR/bundle/vundle ]; then
     echo "Installing vundle"
-    git clone https://github.com/gmarik/Vundle.vim.git $CURRENT_DIR/bundle/vundle
+    git clone https://github.com/gmarik/Vundle.vim.git $CURRENT_DIR/bundle/Vundle.vim
 else
     echo "Upgrading vundle"
     cd "$CURRENT_DIR/bundle/vundle" && git pull origin master
@@ -26,7 +32,7 @@ fi
 echo "Step 4: Install plugins"
 SYSTEM_SHELL=$SHELL
 export SHELL="/bin/sh"
-vim -u $HOME/.vimrc.bundles +BundleInstall +BundleClean +qall
+vim -u $HOME/.vimrc.bundles +BundleInstall! +BundleClean +qall
 export SHEEL=$SYSTEM_SHELL
 
 if [ -e $CURRENT_DIR/bundle/YouCompleteMe ]; then
@@ -44,8 +50,3 @@ fi
 
 echo "Done! Enjoy it!"
 
-lnif() {
-	if [ -e "$1" ]; then
-		ln -sf "$1" "$2"
-	fi
-}

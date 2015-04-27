@@ -45,7 +45,7 @@ set shortmess=atI
 set scrolloff=7
 
 " Avoid garbled characters in Chinese language windows OS
-let $LANG='en' 
+let $LANG='en'
 set langmenu=en
 source $VIMRUNTIME/menu.vim
 
@@ -80,15 +80,15 @@ set nrformats=
 
 " Ignore case when searching
 set ignorecase
- 
-" When searching try to be smart about cases 
+
+" When searching try to be smart about cases
 set smartcase
- 
+
 " Highlight search results
 set hlsearch
- 
+
 " Makes search act like search in modern browsers
-set incsearch 
+set incsearch
 
 " Keep search pattern at the center of the screen
 nnoremap <silent> n nzz
@@ -97,24 +97,24 @@ nnoremap <silent> * *zz
 nnoremap <silent> # #zz
 nnoremap <silent> g* g*zz
 
- 
+
 " Don't redraw while executing macros (good performance config)
-set lazyredraw 
- 
+set lazyredraw
+
 " For regular expressions turn magic on
 set magic
- 
+
 " Show matching brackets when text indicator is over them
-set showmatch 
-" How many tenths of a second to blink when matching brackets                                 
+set showmatch
+" How many tenths of a second to blink when matching brackets
 set mat=2
- 
+
 " No annoying sound on errors
 set noerrorbells
 set novisualbell
 set t_vb=
 set tm=500
- 
+
 " Add a bit extra margin to the left
 set foldcolumn=1
 
@@ -131,11 +131,11 @@ set selectmode=mouse,key
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
-syntax enable 
+syntax enable
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
- 
+
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
 
@@ -153,18 +153,18 @@ set noswapfile
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Use spaces instead of tabs
 set expandtab
- 
+
 " Be smart when using tabs ;)
 set smarttab
- 
+
 " 1 tab == 4 spaces
 set shiftwidth=4
 set tabstop=4
- 
+
 " Linebreak on 500 characters
 set lbr
 set tw=500
- 
+
 set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
@@ -172,16 +172,16 @@ set wrap "Wrap lines
 vnoremap < <gv
 vnoremap > >gv
 
- 
+
 
 """"""""""""""""""""""""""""""
 " => Visual mode related
-""""""""""""""""""""""""""""""                                                                
+""""""""""""""""""""""""""""""
 " Visual mode pressing * or # searches for the current selection
 " Super useful! From an idea by Michael Naumann
 vnoremap <silent> * :call VisualSelection('f', '')<CR>
 vnoremap <silent> # :call VisualSelection('b', '')<CR>
- 
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
@@ -189,32 +189,32 @@ vnoremap <silent> # :call VisualSelection('b', '')<CR>
 " Treat long lines as break lines (useful when moving around in them)
 map j gj
 map k gk
- 
+
 " Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
 map <space> /
- 
+
 " Disable highlight when <leader><cr> is pressed
 map <silent> <leader>/ :noh<cr>
- 
+
 " Smart way to move between windows
 map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
- 
+
 " Close the current buffer
 map <leader>bd :Bclose<cr>
- 
+
 " Close all the buffers
 map <leader>ba :1,1000 bd!<cr>
- 
+
 " Useful mappings for managing tabs
 map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove 
-map <leader>t<leader> :tabnext 
- 
+map <leader>tm :tabmove
+map <leader>t<leader> :tabnext
+
 " Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
 nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
@@ -223,17 +223,17 @@ au TabLeave * let g:lasttab = tabpagenr()
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
 map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
- 
+
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
- 
-" Specify the behavior when switching between buffers 
+
+" Specify the behavior when switching between buffers
 try
   set switchbuf=useopen,usetab,newtab
   set stal=2
 catch
 endtry
- 
+
 " Return to last edit position when opening files (You want this!)
 autocmd BufReadPost *
      \ if line("'\"") > 0 && line("'\"") <= line("$") |
@@ -248,7 +248,7 @@ set viminfo^=%
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Always show the status line
 set laststatus=2
- 
+
 " Format the status line
 set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
 
@@ -258,13 +258,13 @@ set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Remap VIM 0 to first non-blank character
 map 0 ^
- 
+
 " Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
 nmap <M-j> mz:m+<cr>`z
 nmap <M-k> mz:m-2<cr>`z
 vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
 vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
- 
+
 if has("mac") || has("macunix")
   nmap <D-j> <M-j>
   nmap <D-k> <M-k>
@@ -287,13 +287,13 @@ autocmd BufWrite *.coffee :call DeleteTrailingWS()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Pressing ,ss will toggle and untoggle spell checking
 map <leader>ss :setlocal spell!<cr>
- 
+
 " Shortcuts using <leader>
 map <leader>sn ]s
 map <leader>sp [s
 map <leader>sa zg
 map <leader>s? z=
- 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Relative linenumber
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -354,19 +354,19 @@ set pastetoggle=<F5>            "    when in insert mode, press <F5> to go to
 " disbale paste mode when leaving insert mode
 au InsertLeave * set nopaste
 
- 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Misc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Remove the Windows ^M - when the encodings gets messed up
 noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
- 
+
 " Quickly open a buffer for scribble
 map <leader>q :e ~/buffer<cr>
- 
+
 " Quickly open a markdown buffer for scribble
 map <leader>x :e ~/buffer.md<cr>
- 
+
 " Toggle paste mode on and off
 set completeopt=longest,menu
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
@@ -497,7 +497,7 @@ func! CompileRun()
     elseif &filetype == 'go'
         exec "!go build %<"
         exec "!time go run %"
-    elseif &filetype == 'mkd' 
+    elseif &filetype == 'mkd'
         exec "!chrome % &"
     elseif &filetype == 'javascript'
         exec "!time node %"
@@ -517,15 +517,15 @@ function! CmdLine(str)
     exe "menu Foo.Bar :" . a:str
     emenu Foo.Bar
     unmenu Foo
-endfunction 
- 
+endfunction
+
 function! VisualSelection(direction, extra_filter) range
     let l:saved_reg = @"
     execute "normal! vgvy"
- 
+
     let l:pattern = escape(@", '\\/.*$^~[]')
     let l:pattern = substitute(l:pattern, "\n$", "", "")
- 
+
     if a:direction == 'b'
         execute "normal ?" . l:pattern . "^M"
     elseif a:direction == 'gv'
@@ -535,12 +535,12 @@ function! VisualSelection(direction, extra_filter) range
     elseif a:direction == 'f'
         execute "normal /" . l:pattern . "^M"
     endif
- 
+
     let @/ = l:pattern
     let @" = l:saved_reg
 endfunction
- 
- 
+
+
 " Returns true if paste mode is enabled
 function! HasPaste()
     if &paste
@@ -555,17 +555,17 @@ command! Bclose call <SID>BufcloseCloseIt()
 function! <SID>BufcloseCloseIt()
    let l:currentBufNum = bufnr("%")
    let l:alternateBufNum = bufnr("#")
- 
+
    if buflisted(l:alternateBufNum)
      buffer #
    else
      bnext
    endif
- 
+
    if bufnr("%") == l:currentBufNum
      new
    endif
- 
+
    if buflisted(l:currentBufNum)
      execute("bdelete! ".l:currentBufNum)
    endif
