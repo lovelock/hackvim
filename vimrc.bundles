@@ -21,7 +21,6 @@ let g:syntastic_javascript_checkers = ['jsl', 'jshint']
 let g:syntastic_html_checkers=['tidy', 'jshint']
 highlight SyntasticErrorSign guifg=white guibg=black
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Auto complete
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -255,7 +254,7 @@ nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
 let g:ctrlp_funky_syntax_highlight = 1
 let g:ctrlp_extensions = ['funky']
 
-Bundle 'zw/vim-ctrlspace'
+Bundle 'szw/vim-ctrlspace'
 let g:ctrlspace_default_mapping_key = '<C-P>'
 let g:airline_exclude_preview = 1
 hi CtrlSpaceSelected guifg=#586e75 guibg=#eee8d5 guisp=#839496 gui=reverse,bold ctermfg=10 ctermbg=7 cterm=reverse,bold
@@ -296,6 +295,9 @@ Bundle 'shawncplus/phpcomplete.vim'
 "   \}
 
 Bundle 'arnaud-lb/vim-php-namespace'
+Bundle 'vim-scripts/taglist.vim'
+Bundle 'xolox/vim-easytags'
+Bundle 'xolox/vim-misc'
 " Import the class under the cursor
 inoremap <Leader>u <C-O>:call PhpInsertUse()<CR>
 noremap <Leader>u :call PhpInsertUse()<CR>
@@ -327,9 +329,6 @@ Bundle 'lovelock/nginx-vim-syntax'
 "############# Markdown ##############
 Bundle 'plasticboy/vim-markdown'
 let g:vim_markdown_folding_disabled=1
-
-
-
 
 call vundle#end()
 
