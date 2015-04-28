@@ -299,6 +299,11 @@ Bundle 'shawncplus/phpcomplete.vim'
 Bundle 'arnaud-lb/vim-php-namespace'
 Bundle 'vim-scripts/taglist.vim'
 Bundle 'xolox/vim-easytags'
+set tags=tags;/
+" let g:easytags_async = 1
+let g:easytags_dynamic_files = 1
+let g:easytags_auto_highlight = 0
+
 Bundle 'xolox/vim-misc'
 " Import the class under the cursor
 inoremap <Leader>u <C-O>:call PhpInsertUse()<CR>
