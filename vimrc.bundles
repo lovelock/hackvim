@@ -126,6 +126,8 @@ hi IndentGuidesEven guibg=green ctermbg=4
 hi IndentGuidesOdd  ctermbg=black
 hi IndentGuidesEven ctermbg=darkgrey
 
+Bundle 'tpope/vim-commentary'
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Easy movement
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
