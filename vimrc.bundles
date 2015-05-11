@@ -294,6 +294,7 @@ let g:pyflakes_use_quickfix = 0
 " for python.vim syntax highlight
 Bundle 'hdima/python-syntax'
 let python_highlight_all = 1
+au BufNewFile,BufRead *.wsgi set filetype=python
 
 
 "############### PHP ###############
