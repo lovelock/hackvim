@@ -7,6 +7,7 @@ set history=2000
 " Sets leader to ','
 let mapleader = ','
 let g:mapleader = ','
+noremap <F1> <Esc>
 
 " Sets syntax on
 syntax on
