@@ -159,6 +159,7 @@ let g:multi_cursor_quit_key='<Esc>'
 " Open file under cursor when pressing gf (if the text under the cursor is a path)
 Bundle 'amix/open_file_under_cursor.vim'
 Bundle 'scrooloose/nerdtree'
+Bundle 'Xuyuanp/git-nerdtree'
 " open NERDTree automatically when vim starts up if no files were specified
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
@@ -275,10 +276,10 @@ hi CtrlSpaceStatus   guifg=#839496 guibg=#002b36 gui=reverse term=reverse cterm=
 Bundle 'junegunn/seoul256.vim'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'alem0lars/vim-colorscheme-darcula'
-Bundle 'morhetz/gruvbox'       
-Bundle 'tomasr/molokai'        
+Bundle 'morhetz/gruvbox'
+Bundle 'tomasr/molokai'
 Bundle 'sickill/vim-monokai'
-Bundle 'vim-scripts/twilight' 
+Bundle 'vim-scripts/twilight'
 
 " history
 Bundle 'sjl/gundo.vim'
@@ -287,6 +288,8 @@ nnoremap <leader>h :GundoToggle<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Language specific
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"############ Rust #################
+Bundle 'wting/rust.vim'
 "############ Python ###############
 Bundle 'kevinw/pyflakes-vim'
 let g:pyflakes_use_quickfix = 0

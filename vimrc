@@ -31,10 +31,11 @@ set noswapfile
 set autoread
 
 colorscheme seoul256
+"set background=dark
 set t_Co=256
 
 " :W sudo saves the file
-command W w !sudo tee % > /dev/null
+"command W w !sudo tee % > /dev/null
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
@@ -464,6 +465,10 @@ function! AutoSetFileHead()
         call setline(1, "\#!/usr/bin/env ruby")
     endif
 
+    if &filetype == 'perl'
+        call setline(1, "\#!/usr/bin/env perl")
+    endif 
+
     normal G
     normal o
     normal o
@@ -506,6 +511,8 @@ func! CompileRun()
         exec "!time ruby %"
     elseif &filetype == 'php'
         exec "!time php %"
+    elseif &filetype == 'perl'
+        exec "!time perl %"
     endif
 endfunc
 
