@@ -332,6 +332,15 @@ Bundle '2072/PHP-Indenting-for-VIm'
 " for javascript
 Bundle 'jelera/vim-javascript-syntax'
 Bundle "pangloss/vim-javascript"
+Bundle "maksimr/vim-jsbeautify"
+Bundle "einars/js-beautify"
+map <c-f> :call JsBeautify()<cr>
+" or
+autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
+" for html
+autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
+" for css or scss
+autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
 let g:html_indent_inctags = "html,body,head,tbody"
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
