@@ -7,6 +7,7 @@ set history=2000
 " Sets leader to ','
 let mapleader = ','
 let g:mapleader = ','
+noremap <F1> <Esc>
 
 " Sets syntax on
 syntax on
@@ -29,11 +30,11 @@ set noswapfile
 " Sets to auto read when a file is modified from outside
 set autoread
 
-colorscheme seoul256
+set background=dark
 set t_Co=256
 
 " :W sudo saves the file
-command W w !sudo tee % > /dev/null
+"command W w !sudo tee % > /dev/null
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
@@ -126,6 +127,12 @@ set t_ti= t_te=
 
 set selection=inclusive
 set selectmode=mouse,key
+
+" folds automatically by indent level, also can create folds manually
+augroup vimrc
+    au BufReadPre * setlocal foldmethod=indent
+    au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
+augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
@@ -250,7 +257,7 @@ set viminfo^=%
 set laststatus=2
 
 " Format the status line
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
+set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ \ Column:\ %c
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -442,7 +449,7 @@ fun! <SID>StripTrailingWhitespaces()
     %s/\s\+$//e
     call cursor(l, c)
 endfun
-autocmd FileType c,cpp,java,go,javascript,puppet,python,rust,twig,xml,yml,perl autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 
 autocmd BufNewFile *.sh,*.py,*.php,*.rb exec ":call AutoSetFileHead()"
 function! AutoSetFileHead()
@@ -462,6 +469,10 @@ function! AutoSetFileHead()
     if &filetype == 'ruby'
         call setline(1, "\#!/usr/bin/env ruby")
     endif
+
+    if &filetype == 'perl'
+        call setline(1, "\#!/usr/bin/env perl")
+    endif 
 
     normal G
     normal o
@@ -505,6 +516,8 @@ func! CompileRun()
         exec "!time ruby %"
     elseif &filetype == 'php'
         exec "!time php %"
+    elseif &filetype == 'perl'
+        exec "!time perl %"
     endif
 endfunc
 
@@ -568,4 +581,3 @@ function! <SID>BufcloseCloseIt()
         execute("bdelete! ".l:currentBufNum)
     endif
 endfunction
-
