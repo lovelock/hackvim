@@ -309,8 +309,16 @@ Bundle 'shawncplus/phpcomplete.vim'
 "   \ 'jump_to_def_split': '<C-W><C-]>',
 "   \ 'jump_to_def_vsplit': '<C-W><C-\>',
 "   \}
-
+"
 Bundle 'arnaud-lb/vim-php-namespace'
+" Import the class under the cursor
+inoremap <Leader>u <C-O>:call PhpInsertUse()<CR>
+noremap <Leader>u :call PhpInsertUse()<CR>
+" Expand the class name to a fully qualified name
+inoremap <Leader>e <C-O>:call PhpExpandClass()<CR>
+noremap <Leader>e :call PhpExpandClass()<CR>
+Bundle '2072/PHP-Indenting-for-VIm'
+
 Bundle 'vim-scripts/taglist.vim'
 Bundle 'xolox/vim-easytags'
 set tags=tags;/
@@ -319,14 +327,6 @@ let g:easytags_dynamic_files = 1
 let g:easytags_auto_highlight = 0
 
 Bundle 'xolox/vim-misc'
-" Import the class under the cursor
-inoremap <Leader>u <C-O>:call PhpInsertUse()<CR>
-noremap <Leader>u :call PhpInsertUse()<CR>
-" Expand the class name to a fully qualified name
-inoremap <Leader>e <C-O>:call PhpExpandClass()<CR>
-noremap <Leader>e :call PhpExpandClass()<CR>
-
-Bundle '2072/PHP-Indenting-for-VIm'
 
 "###### HTML/JS/JQUERY/CSS #########
 " for javascript
