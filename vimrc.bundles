@@ -274,13 +274,8 @@ hi CtrlSpaceStatus   guifg=#839496 guibg=#002b36 gui=reverse term=reverse cterm=
 " hi CtrlSpaceSearch   ctermfg=220  ctermbg=NONE cterm=bold
 " hi CtrlSpaceStatus   ctermfg=230  ctermbg=234  cterm=NONE
 
-Bundle 'junegunn/seoul256.vim'
 Bundle 'altercation/vim-colors-solarized'
-Bundle 'alem0lars/vim-colorscheme-darcula'
 Bundle 'morhetz/gruvbox'
-Bundle 'tomasr/molokai'
-Bundle 'sickill/vim-monokai'
-Bundle 'vim-scripts/twilight'
 
 " history
 Bundle 'sjl/gundo.vim'

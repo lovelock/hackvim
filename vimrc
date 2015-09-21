@@ -30,8 +30,9 @@ set noswapfile
 " Sets to auto read when a file is modified from outside
 set autoread
 
-colorscheme seoul256
-"set background=dark
+"colorscheme seoul256
+color solarized
+set background=dark
 set t_Co=256
 
 " :W sudo saves the file
