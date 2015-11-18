@@ -6,26 +6,53 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Bundle 'gmarik/Vundle.vim'
+Bundle 'ervandew/supertab'
+Bundle 'scrooloose/nerdcommenter'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Syntax checker
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Bundle 'scrooloose/syntastic'
+let g:syntastic_error_symbol='>>'
+let g:syntastic_warning_symbol='>'
+let g:syntastic_check_on_open=1
+let g:syntastic_enable_highlighting = 0
+"let g:syntastic_python_checker="flake8,pyflakes,pep8,pylint"
+let g:syntastic_python_checkers=['pyflakes']
+let g:syntastic_javascript_checkers = ['jsl', 'jshint']
+let g:syntastic_html_checkers=['tidy', 'jshint']
+highlight SyntasticErrorSign guifg=white guibg=black
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Auto complete
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Auto complete quotes/single quotes
 Bundle 'Raimondi/delimitMate'
+" Optimize for Python docstring
+au FileType python let b:delimitMate_nesting_quotes = ['"']
 " Auto close html tags
 Bundle 'docunext/closetag.vim'
 let g:closetag_html_style=1
 
 " Insert surounded pairs quickly
 Bundle 'tpope/vim-surround'
+" for repeat -> enhance surround.vim, . to repeat command
+Bundle 'tpope/vim-repeat'
 
-Bundle 'ervandew/supertab'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Beautiful code style
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Bundle 'bronson/vim-trailing-whitespace'
 map <leader><space> :FixWhitespace<cr>
+
+Bundle 'junegunn/vim-easy-align'
+vmap <Leader>a <Plug>(EasyAlign)
+nmap <Leader>a <Plug>(EasyAlign)
+if !exists('g:easy_align_delimiters')
+  let g:easy_align_delimiters = {}
+endif
+let g:easy_align_delimiters['#'] = { 'pattern': '#', 'ignore_groups': ['String'] }
 
 Bundle 'nathanaelkane/vim-indent-guides'
 let g:indent_guides_auto_colors = 1
@@ -36,9 +63,6 @@ hi IndentGuidesEven guibg=green ctermbg=4
 hi IndentGuidesOdd  ctermbg=black
 hi IndentGuidesEven ctermbg=darkgrey
 
-" Bundle 'tpope/vim-commentary'
-Bundle 'scrooloose/nerdcommenter'
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Easy movement
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -47,6 +71,14 @@ Bundle "kshenoy/vim-signature"
 " m[a-zA-Z] add mark
 " '[a-zA-Z] go to mark
 " m<Space>  del all marks
+
+Bundle 'Lokaltog/vim-easymotion'
+let g:EasyMotion_smartcase = 1
+" let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
+map <Leader><leader>h <Plug>(easymotion-linebackward)
+map <Leader><Leader>j <Plug>(easymotion-j)
+map <Leader><Leader>k <Plug>(easymotion-k)
+map <Leader><leader>l <Plug>(easymotion-lineforward)
 
 Bundle 'terryma/vim-multiple-cursors'
 let g:multi_cursor_use_default_mapping=0
@@ -80,11 +112,78 @@ map <Leader>n <plug>NERDTreeTabsToggle<CR>
 let g:nerdtree_tabs_synchronize_view=1
 let g:nerdtree_tabs_synchronize_focus=0
 
-Bundle 'vim-scripts/minibufexplorerpp'
+Bundle 'bling/vim-airline'
+let g:airline_powerline_fonts = 1
+let g:airline_section_b = '%{strftime("%c")}'
+let g:airline_section_y = 'BN: %{bufnr("%")}'
+if !exists('g:airline_symbols')
+let g:airline_symbols = {}
+endif
+let g:airline_left_sep = '▶'
+let g:airline_left_alt_sep = '❯'
+let g:airline_right_sep = '◀'
+let g:airline_right_alt_sep = '❮'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+
+map <leader>cc :botright cope<cr>
+map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
+map <leader>n :cn<cr>
+map <leader>p :cp<cr>
+
+Bundle 'kien/ctrlp.vim'
+let g:ctrlp_map = '<leader>p'
+let g:ctrlp_cmd = 'CtrlP'
+map <leader>f :CtrlPMRU<CR>
+"set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux"
+let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\v[\/]\.(git|hg|svn|rvm)$',
+    \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz)$',
+    \ }
+"\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
+let g:ctrlp_working_path_mode=0
+let g:ctrlp_match_window_bottom=1
+let g:ctrlp_max_height=15
+let g:ctrlp_match_window_reversed=0
+let g:ctrlp_mruf_max=500
+let g:ctrlp_follow_symlinks=1
+
+Bundle 'tacahiroy/ctrlp-funky'
+nnoremap <Leader>fu :CtrlPFunky<Cr>
+" narrow the list down with a word under cursor
+nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
+let g:ctrlp_funky_syntax_highlight = 1
+let g:ctrlp_extensions = ['funky']
+
+Bundle 'szw/vim-ctrlspace'
+let g:ctrlspace_default_mapping_key = '<C-P>'
+let g:airline_exclude_preview = 1
+hi CtrlSpaceSelected guifg=#586e75 guibg=#eee8d5 guisp=#839496 gui=reverse,bold ctermfg=10 ctermbg=7 cterm=reverse,bold
+hi CtrlSpaceNormal   guifg=#839496 guibg=#021B25 guisp=#839496 gui=NONE ctermfg=12 ctermbg=0 cterm=NONE
+hi CtrlSpaceSearch   guifg=#cb4b16 guibg=NONE gui=bold ctermfg=9 ctermbg=NONE term=bold cterm=bold
+hi CtrlSpaceStatus   guifg=#839496 guibg=#002b36 gui=reverse term=reverse cterm=reverse ctermfg=12 ctermbg=8
+
+" hi CtrlSpaceSelected term=reverse ctermfg=187  ctermbg=23  cterm=bold
+" hi CtrlSpaceNormal   term=NONE    ctermfg=244  ctermbg=232 cterm=NONE
+" hi CtrlSpaceSearch   ctermfg=220  ctermbg=NONE cterm=bold
+" hi CtrlSpaceStatus   ctermfg=230  ctermbg=234  cterm=NONE
+
+Bundle 'junegunn/seoul256.vim'
 
 " history
 Bundle 'sjl/gundo.vim'
 nnoremap <leader>h :GundoToggle<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Language specific
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"############ Python ###############
+Bundle 'kevinw/pyflakes-vim'
+let g:pyflakes_use_quickfix = 0
+
+" for python.vim syntax highlight
+Bundle 'hdima/python-syntax'
+let python_highlight_all = 1
 
 "############### PHP ###############
 Bundle 'shawncplus/phpcomplete.vim'
@@ -95,30 +194,28 @@ Bundle 'shawncplus/phpcomplete.vim'
 "   \ 'jump_to_def_vsplit': '<C-W><C-\>',
 "   \}
 
+Bundle 'arnaud-lb/vim-php-namespace'
 Bundle 'vim-scripts/taglist.vim'
 Bundle 'xolox/vim-easytags'
-Bundle 'xolox/vim-misc'
 set tags=tags;/
 " let g:easytags_async = 1
 let g:easytags_dynamic_files = 1
 let g:easytags_auto_highlight = 0
 
+Bundle 'xolox/vim-misc'
+" Import the class under the cursor
+inoremap <Leader>u <C-O>:call PhpInsertUse()<CR>
+noremap <Leader>u :call PhpInsertUse()<CR>
+" Expand the class name to a fully qualified name
+inoremap <Leader>e <C-O>:call PhpExpandClass()<CR>
+noremap <Leader>e :call PhpExpandClass()<CR>
+
 Bundle '2072/PHP-Indenting-for-VIm'
-Bundle 'xsbeats/vim-blade'
 
 "###### HTML/JS/JQUERY/CSS #########
 " for javascript
 Bundle 'jelera/vim-javascript-syntax'
 Bundle "pangloss/vim-javascript"
-Bundle "maksimr/vim-jsbeautify"
-Bundle "einars/js-beautify"
-map <c-f> :call JsBeautify()<cr>
-" or
-autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
-" for html
-autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
-" for css or scss
-autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
 let g:html_indent_inctags = "html,body,head,tbody"
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
@@ -127,4 +224,12 @@ let g:html_indent_style1 = "inc"
 Bundle 'nono/jquery.vim'
 Bundle "mattn/emmet-vim"
 Bundle 'ap/vim-css-color'
+
+"############ nginx #################
+Bundle 'lovelock/nginx-vim-syntax'
+
+"############# Markdown ##############
+Bundle 'plasticboy/vim-markdown'
+let g:vim_markdown_folding_disabled=1
+
 call vundle#end()
