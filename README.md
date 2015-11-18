@@ -1,5 +1,10 @@
 # hackvim
 My own VIM configuration
+作为一个以PHP为主的开发者，经常直接在服务端编写代码，那么一套简单但实用的Vim配置就必不可少了。
+
+如果你像我一样，主要写PHP，偶尔写点Python/JS，可以直接用这个代码库的server分支。
+
+如果平时还经常接触别的语言，那就用master分支，功能比较全，尤其是YouCompleteMe简直是大杀器，不过装起来也挺麻烦的，看自己的需求吧。
 
 # 1. Installation
 ### 1. clone the repo to your local disk
