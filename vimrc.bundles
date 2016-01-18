@@ -246,7 +246,7 @@ nnoremap <silent> <leader>z :Goyo<cr>
 Bundle 'kien/ctrlp.vim'
 let g:ctrlp_map = '<leader>p'
 let g:ctrlp_cmd = 'CtrlP'
-map <leader>f :CtrlPMRU<CR>
+map <leader>f :CtrlPCurWD<CR>
 "set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux"
 let g:ctrlp_custom_ignore = {
     \ 'dir':  '\v[\/]\.(git|hg|svn|rvm)$',
