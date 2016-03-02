@@ -16,9 +16,11 @@ let g:syntastic_warning_symbol='>'
 let g:syntastic_check_on_open=1
 let g:syntastic_enable_highlighting = 0
 "let g:syntastic_python_checker="flake8,pyflakes,pep8,pylint"
+let g:syntastic_python_pyflakes_exec = 'python3 /usr/local/bin/pyflakes'
 let g:syntastic_python_checkers=['pyflakes']
+let g:syntastic_python_python_exec = 'python3'
 let g:syntastic_javascript_checkers = ['jsl', 'jshint']
-let g:syntastic_html_checkers=['tidy', 'jshint']
+let g:syntastic_html_checkers=['tidy5', 'jshint']
 highlight SyntasticErrorSign guifg=white guibg=black
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

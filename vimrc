@@ -459,7 +459,7 @@ function! AutoSetFileHead()
     endif
 
     if &filetype == 'python'
-        call setline(1, "\#!/usr/bin/env python")
+        call setline(1, "\#!/usr/bin/env python3")
         call append(1, "\# encoding: utf-8")
     endif
 
@@ -487,7 +487,7 @@ map <F10> :call CompileRun()<CR>
 func! CompileRun()
     exec "w"
     if &filetype == 'c'
-        exec "!g++ % -o %<"
+        exec "!gcc % -o %<"
         exec "!time ./%<"
         exec "!rm ./%<"
     elseif &filetype == 'cpp'
@@ -501,7 +501,7 @@ func! CompileRun()
     elseif &filetype == 'sh'
         exec "!time bash %"
     elseif &filetype == 'python'
-        exec "!time python %"
+        exec "!time python3 %"
     elseif &filetype == 'html'
         exec "!chrome % &"
     elseif &filetype == 'go'
