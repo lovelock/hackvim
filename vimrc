@@ -40,6 +40,9 @@ filetype plugin indent on
 set nobackup
 set noswapfile
 
+" Search tags recurrently
+set tags=./tags;
+
 " Sets to auto read when a file is modified from outside
 set autoread
 
