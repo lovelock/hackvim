@@ -306,6 +306,11 @@ au BufNewFile,BufRead *.wsgi set filetype=python
 "############### PHP ###############
 Bundle 'alvan/vim-php-manual'
 Bundle 'shawncplus/phpcomplete.vim'
+Bundle 'tobyS/vmustache'
+Bundle 'tobyS/pdv'
+" PHP documenter script bound to Control-P
+let g:pdv_template_dir = $HOME ."/.vim/bundle/pdv/templates_snip"
+autocmd FileType php nnoremap <leader>p :call pdv#DocumentWithSnip()<CR>
 " default key mapping, needs ctags
 " let g:phpcomplete_mappings = {
 "   \ 'jump_to_def': '<C-]>',
