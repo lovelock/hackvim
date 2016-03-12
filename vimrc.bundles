@@ -304,7 +304,6 @@ let python_highlight_all = 1
 au BufNewFile,BufRead *.wsgi set filetype=python
 
 "############### PHP ###############
-Bundle 'alvan/vim-php-manual'
 Bundle 'shawncplus/phpcomplete.vim'
 Bundle 'tobyS/vmustache'
 Bundle 'tobyS/pdv'
