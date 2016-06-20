@@ -521,7 +521,6 @@ func! CompileRun()
     elseif &filetype == 'html'
         exec "!chrome % &"
     elseif &filetype == 'go'
-        exec "!go build %<"
         exec "!time go run %"
     elseif &filetype == 'mkd'
         exec "!chrome % &"
