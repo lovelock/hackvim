@@ -378,5 +378,9 @@ Plugin 'fatih/vim-go'
 Plugin 'plasticboy/vim-markdown'
 let g:vim_markdown_folding_disabled=1
 
+"############## WakaTime ##############
+Plugin 'wakatime/vim-wakatime'
+"######################################
+
 call vundle#end()
 
