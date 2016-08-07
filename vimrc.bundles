@@ -283,6 +283,8 @@ hi CtrlSpaceStatus   guifg=#839496 guibg=#002b36 gui=reverse term=reverse cterm=
 " hi CtrlSpaceStatus   ctermfg=230  ctermbg=234  cterm=NONE
 
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'tomasr/molokai'
+Plugin 'blueshirts/darcula'
 Plugin 'morhetz/gruvbox'
 
 " history

@@ -46,7 +46,9 @@ set tags=./tags;
 " Sets to auto read when a file is modified from outside
 set autoread
 
-color solarized
+"color solarized
+"color molokai
+color darcula
 set background=dark
 set t_Co=256
 
