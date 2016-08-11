@@ -329,6 +329,7 @@ noremap <Leader>e :call PhpExpandClass()<CR>
 Plugin '2072/PHP-Indenting-for-VIm'
 
 Plugin 'vim-scripts/taglist.vim'
+map <leader>t :TlistToggle<cr>
 Plugin 'xolox/vim-easytags'
 set tags=tags;/
 " let g:easytags_async = 1
