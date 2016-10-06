@@ -26,46 +26,6 @@ highlight SyntasticErrorSign guifg=white guibg=black
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Auto complete
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Plugin 'Valloric/YouCompleteMe'
-let g:ycm_key_list_select_completion=['<c-n>', '<Down>']
- "let g:ycm_key_list_select_completion = ['<Down>']
-let g:ycm_key_list_previous_completion=['<c-p>', '<Up>']
- "let g:ycm_key_list_previous_completion = ['<Up>']
-let g:ycm_complete_in_comments = 1
-let g:ycm_complete_in_strings = 1
-let g:ycm_use_ultisnips_completer = 1
-let g:ycm_collect_identifiers_from_comments_and_strings = 1
-let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_add_preview_to_completeopt = 1
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_min_num_of_chars_for_completion = 1
-
-let g:ycm_goto_buffer_command = 'horizontal-split'
-" nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
-nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
-nnoremap <leader>gd :YcmCompleter GoToDeclaration<CR>
-
-let g:ycm_seed_identifiers_with_syntax=1
-
-" old version
-if !empty(glob("~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py"))
-    let g:ycm_global_ycm_extra_conf = "~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py"
-endif
-" new version
-if !empty(glob("~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"))
-    let g:ycm_global_ycm_extra_conf = "~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"
-endif
-
-" 直接触发自动补全 insert模式下
-" let g:ycm_key_invoke_completion = '<C-Space>'
-let g:ycm_filetype_blacklist = {
-      \ 'tagbar' : 1,
-      \ 'gitcommit' : 1,
-      \ 'markdown' : 1,
-      \ 'notes' : 1,
-      \}
-
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 
@@ -138,7 +98,6 @@ hi IndentGuidesEven guibg=green ctermbg=4
 hi IndentGuidesOdd  ctermbg=black
 hi IndentGuidesEven ctermbg=darkgrey
 
-" Plugin 'tpope/vim-commentary'
 Plugin 'scrooloose/nerdcommenter'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -150,14 +109,6 @@ Plugin 'kshenoy/vim-signature'
 " '[a-zA-Z] go to mark
 " m<Space>  del all marks
 
-Plugin 'Lokaltog/vim-easymotion'
-let g:EasyMotion_smartcase = 1
-" let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
-map <Leader><leader>h <Plug>(easymotion-linebackward)
-map <Leader><Leader>j <Plug>(easymotion-j)
-map <Leader><Leader>k <Plug>(easymotion-k)
-map <Leader><leader>l <Plug>(easymotion-lineforward)
-
 Plugin 'terryma/vim-multiple-cursors'
 let g:multi_cursor_use_default_mapping=0
 " Default mapping
@@ -166,8 +117,6 @@ let g:multi_cursor_prev_key='<C-p>'
 let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<Esc>'
 
-" Open file under cursor when pressing gf (if the text under the cursor is a path)
-Plugin 'amix/open_file_under_cursor.vim'
 Plugin 'scrooloose/nerdtree'
 " open NERDTree automatically when vim starts up if no files were specified
 autocmd StdinReadPre * let s:std_in=1
@@ -189,61 +138,6 @@ Plugin 'jistr/vim-nerdtree-tabs'
 map <Leader>n <plug>NERDTreeTabsToggle<CR>
 let g:nerdtree_tabs_synchronize_view=1
 let g:nerdtree_tabs_synchronize_focus=0
-
-Plugin 'bling/vim-airline'
-let g:airline_powerline_fonts = 1
-let g:airline_section_b = '%{strftime("%c")}'
-let g:airline_section_y = 'BN: %{bufnr("%")}'
-if !exists('g:airline_symbols')
-let g:airline_symbols = {}
-endif
-let g:airline_left_sep = '▶'
-let g:airline_left_alt_sep = '❯'
-let g:airline_right_sep = '◀'
-let g:airline_right_alt_sep = '❮'
-let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.branch = '⎇'
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Ag searching and cope displaying
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Plugin 'rking/ag.vim'
-" When you press gv you Ack after the selected text
-vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
-
-" Open Ack and put the cursor in the right position
-map <leader>g :Ag "<cword>"<cr>
-
-" When you press <leader>r you can search and replace the selected text
-vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
-
-" Do :help cope if you are unsure what cope is. It's super useful!
-"
-" When you search with Ack, display your results in cope by doing:
-"   <leader>cc
-"
-" To go to the next search result do:
-"   <leader>n
-"
-" To go to the previous search results do:
-"   <leader>p
-"
-map <leader>cc :botright cope<cr>
-map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
-map <leader>n :cn<cr>
-map <leader>p :cp<cr>
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Vimroom
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Plugin 'junegunn/goyo.vim'
-Plugin 'amix/vim-zenroom2'
-let g:goyo_width=100
-let g:goyo_margin_top = 2
-let g:goyo_margin_bottom = 2
-nnoremap <silent> <leader>z :Goyo<cr>
 
 Plugin 'kien/ctrlp.vim'
 let g:ctrlp_map = '<leader>p'
@@ -277,11 +171,6 @@ hi CtrlSpaceNormal   guifg=#839496 guibg=#021B25 guisp=#839496 gui=NONE ctermfg=
 hi CtrlSpaceSearch   guifg=#cb4b16 guibg=NONE gui=bold ctermfg=9 ctermbg=NONE term=bold cterm=bold
 hi CtrlSpaceStatus   guifg=#839496 guibg=#002b36 gui=reverse term=reverse cterm=reverse ctermfg=12 ctermbg=8
 
-" hi CtrlSpaceSelected term=reverse ctermfg=187  ctermbg=23  cterm=bold
-" hi CtrlSpaceNormal   term=NONE    ctermfg=244  ctermbg=232 cterm=NONE
-" hi CtrlSpaceSearch   ctermfg=220  ctermbg=NONE cterm=bold
-" hi CtrlSpaceStatus   ctermfg=230  ctermbg=234  cterm=NONE
-
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'tomasr/molokai'
 Plugin 'blueshirts/darcula'
@@ -294,16 +183,7 @@ nnoremap <leader>h :GundoToggle<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Language specific
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"############ Rust #################
-Plugin 'wting/rust.vim'
 "############ Python ###############
-Plugin 'kevinw/pyflakes-vim'
-let g:pyflakes_use_quickfix = 0
-
-" for python.vim syntax highlight
-Plugin 'hdima/python-syntax'
-let python_highlight_all = 1
-au BufNewFile,BufRead *.wsgi set filetype=python
 
 "############### PHP ###############
 Plugin 'shawncplus/phpcomplete.vim'
@@ -337,11 +217,6 @@ let g:easytags_dynamic_files = 1
 let g:easytags_auto_highlight = 0
 
 Plugin 'xolox/vim-misc'
-
-"### Graphviz ###
-Plugin 'wannesm/wmgraphviz.vim'
-noremap <Leader>ll :GraphvizCompile<CR>
-noremap <Leader>lv :GraphvizShow<CR>
 
 "###### HTML/JS/JQUERY/CSS #########
 " for javascript
