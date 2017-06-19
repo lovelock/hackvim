@@ -23,49 +23,6 @@ let g:syntastic_javascript_checkers = ['jsl', 'jshint']
 let g:syntastic_html_checkers=['tidy5', 'jshint']
 highlight SyntasticErrorSign guifg=white guibg=black
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Auto complete
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Plugin 'Valloric/YouCompleteMe'
-let g:ycm_key_list_select_completion=['<c-n>', '<Down>']
- "let g:ycm_key_list_select_completion = ['<Down>']
-let g:ycm_key_list_previous_completion=['<c-p>', '<Up>']
- "let g:ycm_key_list_previous_completion = ['<Up>']
-let g:ycm_complete_in_comments = 1
-let g:ycm_complete_in_strings = 1
-let g:ycm_use_ultisnips_completer = 1
-let g:ycm_collect_identifiers_from_comments_and_strings = 1
-let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_add_preview_to_completeopt = 1
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_min_num_of_chars_for_completion = 1
-
-let g:ycm_goto_buffer_command = 'horizontal-split'
-" nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
-nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
-nnoremap <leader>gd :YcmCompleter GoToDeclaration<CR>
-
-let g:ycm_seed_identifiers_with_syntax=1
-
-" old version
-if !empty(glob("~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py"))
-    let g:ycm_global_ycm_extra_conf = "~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py"
-endif
-" new version
-if !empty(glob("~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"))
-    let g:ycm_global_ycm_extra_conf = "~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"
-endif
-
-" 直接触发自动补全 insert模式下
-" let g:ycm_key_invoke_completion = '<C-Space>'
-let g:ycm_filetype_blacklist = {
-      \ 'tagbar' : 1,
-      \ 'gitcommit' : 1,
-      \ 'markdown' : 1,
-      \ 'notes' : 1,
-      \}
-
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 
@@ -80,22 +37,6 @@ let g:UltiSnipsEditSplit="vertical"
 map <leader>us :UltiSnipsEdit<CR>
 let g:snips_author = "frostwong@gmail.com"
 
-func! g:JInYCM()
-    if pumvisible()
-        return "\<C-n>"
-    else
-        return "\<c-j>"
-    endif
-endfunction
-
-func! g:KInYCM()
-    if pumvisible()
-        return "\<C-p>"
-    else
-        return "\<c-k>"
-    endif
-endfunction
-inoremap <c-j> <c-r>=g:JInYCM()<cr>
 au BufEnter,BufRead * exec "inoremap <silent> " . g:UltiSnipsJumpBackwordTrigger . " <C-R>=g:KInYCM()<cr>"
 let g:UltiSnipsJumpBackwordTrigger = "<c-k>"
 
@@ -138,7 +79,6 @@ hi IndentGuidesEven guibg=green ctermbg=4
 hi IndentGuidesOdd  ctermbg=black
 hi IndentGuidesEven ctermbg=darkgrey
 
-" Plugin 'tpope/vim-commentary'
 Plugin 'scrooloose/nerdcommenter'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -235,15 +175,6 @@ map <leader>n :cn<cr>
 map <leader>p :cp<cr>
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Vimroom
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Plugin 'junegunn/goyo.vim'
-Plugin 'amix/vim-zenroom2'
-let g:goyo_width=100
-let g:goyo_margin_top = 2
-let g:goyo_margin_bottom = 2
-nnoremap <silent> <leader>z :Goyo<cr>
 
 Plugin 'kien/ctrlp.vim'
 let g:ctrlp_map = '<leader>p'
@@ -294,8 +225,6 @@ nnoremap <leader>h :GundoToggle<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Language specific
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"############ Rust #################
-Plugin 'wting/rust.vim'
 "############ Python ###############
 Plugin 'kevinw/pyflakes-vim'
 let g:pyflakes_use_quickfix = 0
@@ -370,9 +299,6 @@ Plugin 'ap/vim-css-color'
 
 "############ nginx #################
 Plugin 'lovelock/nginx-vim-syntax'
-
-"########### Zephir #################
-Plugin 'xwsoul/vim-zephir'
 
 "############ Golang ################
 Plugin 'fatih/vim-go'
